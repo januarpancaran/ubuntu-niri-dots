@@ -6,8 +6,8 @@ source setup-nodejs.sh
 
 install_neovim() {
 	"$SUDO_CMD" add-apt-repository ppa:neovim-ppa/unstable
-	"$SUDO_CMD" apt update
-	"$SUDO_CMD" apt install -y neovim
+	update_cmd
+	install_cmd neovim
 
 	install_config
 }
