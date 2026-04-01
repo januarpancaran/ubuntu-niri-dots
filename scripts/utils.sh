@@ -80,6 +80,7 @@ UTILS=(
     unzip
     wget
     wl-clipboard
+    wl-mirror
     zip
     zlib1g-dev
     zoxide
