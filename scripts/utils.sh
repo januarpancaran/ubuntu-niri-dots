@@ -96,6 +96,17 @@ UTILS=(
     zsh
 )
 
+install_tmux_tpm() {
+    set_config_dir
+
+    local tpm_dir="${CONF_DIR}/tmux/plugins/tpm"
+
+    mkdir -p "$(dirname "$tpm_dir")"
+
+    [ ! -d "$tpm_dir" ] && git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
+}
+
 install_utils() {
     install_cmd "${UTILS[@]}"
+    install_tmux_tpm
 }
