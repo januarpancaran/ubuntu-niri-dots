@@ -18,82 +18,83 @@ source "$SCRIPTS_DIR/setup-niri.sh"
 source "$SCRIPTS_DIR/setup-nodejs.sh"
 
 copy_configs() {
-	echo "Copying config files..."
+    echo "Copying config files..."
 
-	set_config_dir
+    set_config_dir
 
-	local -a conf_dirs=(
-		fastfetch
-		ghostty
-		mpv
-		niri
-		noctalia
-		tmux
-		starship
-	)
+    local -a conf_dirs=(
+        fastfetch
+        ghostty
+        mpv
+        niri
+        noctalia
+        tmux
+        starship
+    )
 
-	local -a home_files=(
-		.bashrc
-		.zshrc
-	)
+    local -a home_files=(
+        .bashrc
+        .zshrc
+    )
 
-	for dir in "${conf_dirs[@]}"; do
-		local src="$ROOT_DIR/src/$dir"
-		[ -d "$src" ] || continue
+    for dir in "${conf_dirs[@]}"; do
+        local src="$ROOT_DIR/src/$dir"
+        [ -d "$src" ] || continue
 
-		local dest="${CONF_DIR}/$dir"
+        local dest="${CONF_DIR}/$dir"
 
-		[ -e "$dest" ] && backup_dir "$dest"
+        [ -e "$dest" ] && backup_dir "$dest"
 
-		cp -r "$src" "$dest"
-		echo "Copied $src -> $dest"
-	done
+        cp -r "$src" "$dest"
+        echo "Copied $src -> $dest"
+    done
 
-	for file in "${home_files[@]}"; do
-		local src="$ROOT_DIR/src/$file"
-		[ -f "$src" ] || continue
+    for file in "${home_files[@]}"; do
+        local src="$ROOT_DIR/src/$file"
+        [ -f "$src" ] || continue
 
-		local dest="$HOME/$file"
-		[ -f "$dest" ] && backup_file "$dest"
+        local dest="$HOME/$file"
+        [ -f "$dest" ] && backup_file "$dest"
 
-		cp "$src" "$dest"
-		echo "Copied $src -> $dest"
-	done
+        cp "$src" "$dest"
+        echo "Copied $src -> $dest"
+    done
 }
 
 change_shell() {
-	read -rp "Change shell to zsh? [y/N] " shell_choice
+    read -rp "Change shell to zsh? [y/N] " shell_choice
 
-	case "$shell_choice" in
-	[Yy])
-		chsh -s "$(command -v zsh)"
-		;;
-	*)
-		echo "Shell not changed"
-		;;
-	esac
+    case "$shell_choice" in
+    [Yy])
+        chsh -s "$(command -v zsh)"
+        ;;
+    *)
+        echo "Shell not changed"
+        ;;
+    esac
 }
 
 main() {
-	update_cmd
-	install_utils
-	install_niri
-	install_warp
-	install_bibata
-	install_fonts
-	install_ghostty
-	install_entertainment
-	copy_configs
-	choose_browser
+    update_cmd
+    install_utils
+    install_niri
+    install_warp
+    install_bibata
+    install_fonts
+    install_ghostty
+    install_entertainment
+    copy_configs
+    choose_browser
 
-	user_choice "Windows Fonts" install_windows_fonts
-	user_choice "Node.js 24 LTS" install_nodejs
-	user_choice "Development packages" install_dev_pkgs
-	user_choice "My Neovim Config" install_neovim
+    user_choice "Windows Fonts" install_windows_fonts
+    user_choice "Node.js 24 LTS" install_nodejs
+    user_choice "Development packages" install_dev_pkgs
+    user_choice "My Neovim Config" install_neovim
 
-	add_group video
+    add_group video
+    change_shell
 
-	echo "Installation finished!"
+    echo "Installation finished!"
 }
 
 main "$@"
