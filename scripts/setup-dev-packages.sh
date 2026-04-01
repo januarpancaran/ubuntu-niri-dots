@@ -72,17 +72,16 @@ install_opencode() {
 
 install_vscode() {
   if ! cmd_exists code; then
-    if ! curl -L -o "code.deb" "https://vscode.download.prss.microsoft.com/dbazure/download/stable/cfbea10c5ffb233ea9177d34726e6056e89913dc/code_1.113.0-1774364744_amd64.deb"; then
-      echo "Failed to fetch vscode"
-      return 1
-    fi
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc |
+      gpg --dearmor |
+      sudo tee /etc/apt/keyrings/packages.microsoft.gpg > /dev/null
 
-    if ! install_cmd "./code.deb"; then
-      echo "Failed to install vscode"
-      return 1
-    fi
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] \
+      https://packages.microsoft.com/repos/code stable main" |
+      sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
 
-    rm -f "code.deb"
+    update_cmd
+    install_cmd apt-transport-https code
   fi
 }
 
