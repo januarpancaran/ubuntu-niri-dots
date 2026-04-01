@@ -70,6 +70,7 @@ UTILS=(
     libyaml-dev
     ripgrep
     software-properties-common
+    starship
     tar
     tmux
     trash-cli
