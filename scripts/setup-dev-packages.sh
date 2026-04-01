@@ -28,6 +28,7 @@ install_dev_pkgs() {
 	install_copilot_cli
 	install_opencode
 	install_vscode
+	install_docker
 }
 
 install_github_cli() {
@@ -82,4 +83,10 @@ install_vscode() {
 
 		rm -f "code.deb"
 	fi
+}
+
+install_docker() {
+	install_cmd docker.io docker-buildx docker-compose-v2
+
+	add_group docker
 }
