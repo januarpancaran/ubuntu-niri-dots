@@ -40,3 +40,10 @@ install_nodejs() {
     "$fnm_path/fnm" install "$version" || return 1
     "$fnm_path/fnm" default "$version" || return 1
 }
+
+install_bun() {
+    if ! curl -fsSL https://bun.com/install | bash; then
+        echo "Failed to install Bun"
+        return 1
+    fi
+}

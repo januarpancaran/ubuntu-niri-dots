@@ -88,6 +88,7 @@ main() {
 
     user_choice "Windows Fonts" install_windows_fonts
     user_choice "Node.js 24 LTS" install_nodejs
+    user_choice "Bun" install_bun
     user_choice "Development packages" install_dev_pkgs
     user_choice "My Neovim Config" install_neovim
 
