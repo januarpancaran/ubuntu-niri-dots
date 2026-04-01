@@ -27,7 +27,7 @@ output "HDMI-A-1" {
 }
 
 layout {
-    gaps 6
+    gaps 15
     center-focused-column "never"
 
     preset-column-widths {
@@ -48,11 +48,11 @@ layout {
     }
 
     border {
-        width 4
-        active-color "#cba6f7" 
-        inactive-color "#595959"
+        width 3
+        active-color "#c4a7e7"
+        inactive-color "#403d52"
 
-        urgent-color "#9b0000"
+        urgent-color "#eb6f92"
     }
 }
 
