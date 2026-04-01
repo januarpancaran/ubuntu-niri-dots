@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 install_nodejs() {
 	if cmd_exists node && cmd_exists npm; then
@@ -39,5 +40,3 @@ install_nodejs() {
 	"$fnm_path/fnm" install "$version" || return 1
 	"$fnm_path/fnm" default "$version" || return 1
 }
-
-user_choice "Node.js 24 LTS" install_nodejs

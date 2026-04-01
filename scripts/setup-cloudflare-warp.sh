@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 install_warp() {
 	if [ ! -f /etc/apt/sources.list.d/cloudflare-client.list ]; then
@@ -11,5 +12,3 @@ install_warp() {
 	update_cmd
 	install_cmd cloudflare-warp
 }
-
-install_warp

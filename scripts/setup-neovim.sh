@@ -1,8 +1,7 @@
 #!/bin/bash
 
-source utils.sh
-source dev-packages.sh
-source setup-nodejs.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 install_neovim() {
 	"$SUDO_CMD" add-apt-repository ppa:neovim-ppa/unstable
@@ -16,18 +15,17 @@ install_config() {
 	set_config_dir
 	set_local_dir
 
-	local NVIM_DIR="${CONF_DIR}/nvim"
+	local nvim_dir="${CONF_DIR}/nvim"
 
-	backup_dir "$NVIM_DIR"
-	backup_dir "${LOCAL_DIR}/share/nvim"
-	backup_dir "${LOCAL_DIR}/state/nvim"
-	backup_dir "$HOME/.cache/nvim"
+	[ -e "$nvim_dir" ] && backup_dir "$nvim_dir"
+	[ -e "${LOCAL_DIR}/share/nvim" ] && backup_dir "${LOCAL_DIR}/share/nvim"
+	[ -e "${LOCAL_DIR}/state/nvim" ] && backup_dir "${LOCAL_DIR}/state/nvim"
+	[ -e "$HOME/.cache/nvim" ] && backup_dir "$HOME/.cache/nvim"
 
-	git clone https://github.com/januarpancaran/neovim-config.git "$NVIM_DIR"
+	git clone https://github.com/januarpancaran/neovim-config.git "$nvim_dir"
 
-	cd "$NVIM_DIR" || return 1
+	pushd "$nvim_dir" >/dev/null || return 1
 	rm -rf .git
-	rm README.md
+	rm -f README.md
+	popd >/dev/null || return 1
 }
-
-user_choice "my Neovim config" install_neovim

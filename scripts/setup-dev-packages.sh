@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 DEV_PKGS=(
 	composer
@@ -81,5 +82,3 @@ install_vscode() {
 		rm -f "code.deb"
 	fi
 }
-
-user_choice "dev packages" install_dev_pkgs

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 FONTS=(
 	fonts-noto-cjk
@@ -41,6 +42,3 @@ install_jetbrains_nerd_font() {
 
 	rm -rf JetBrainsMono "$zip_file"
 }
-
-install_fonts
-user_choice "Windows Fonts" install_windows_fonts

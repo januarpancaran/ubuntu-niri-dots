@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 persist_browser_config() {
 	local browser_cmd="$1"
@@ -81,5 +82,3 @@ choose_browser() {
 		;;
 	esac
 }
-
-choose_browser

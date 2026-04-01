@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source utils.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 install_bibata() {
 	local CURSOR_DIR="$HOME/.icons"
@@ -22,5 +23,3 @@ install_bibata() {
 
 	rm -f "$tar_file"
 }
-
-install_bibata
