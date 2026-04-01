@@ -10,6 +10,7 @@ DEV_PKGS=(
   jq
   libxml2-utils
   lua5.4
+  liblua5.4-dev
   mysql-server
   openjdk-25-jdk
   php
