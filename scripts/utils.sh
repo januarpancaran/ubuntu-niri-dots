@@ -68,6 +68,7 @@ UTILS=(
     jq
     libgmp-dev
     libyaml-dev
+    policykit-1-gnome
     ripgrep
     software-properties-common
     starship
