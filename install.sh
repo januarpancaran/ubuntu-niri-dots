@@ -65,13 +65,13 @@ main() {
 	update_cmd
 	install_utils
 	install_niri
-	choose_browser
 	install_warp
 	install_bibata
 	install_fonts
 	install_ghostty
 	install_entertainment
 	copy_configs
+	choose_browser
 
 	user_choice "Windows Fonts" install_windows_fonts
 	user_choice "Node.js 24 LTS" install_nodejs
