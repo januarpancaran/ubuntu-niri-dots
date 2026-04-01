@@ -61,6 +61,16 @@ copy_configs() {
     done
 }
 
+install_tmux_tpm() {
+    set_config_dir
+
+    local tpm_dir="${CONF_DIR}/tmux/plugins/tpm"
+
+    mkdir -p "$(dirname "$tpm_dir")"
+
+    [ ! -d "$tpm_dir" ] && git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
+}
+
 change_shell() {
     read -rp "Change shell to zsh? [y/N] " shell_choice
 
@@ -84,6 +94,7 @@ main() {
     install_ghostty
     install_entertainment
     copy_configs
+    install_tmux_tpm
     choose_browser
 
     user_choice "Windows Fonts" install_windows_fonts
