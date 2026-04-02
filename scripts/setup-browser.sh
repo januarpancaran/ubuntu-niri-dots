@@ -27,7 +27,7 @@ EOF
 choose_browser() {
   echo "Choose your preferred browser from this list"
   echo "1. Firefox (snap)"
-  echo "2. Firefox ESR (apt)"
+  echo "2. Firefox (apt)"
   echo "3. Google Chrome"
   echo "4. Microsoft Edge"
 
@@ -42,19 +42,30 @@ choose_browser() {
   2)
     if snap list | grep -q '^firefox'; then
       echo "Firefox (snap) is already installed."
-      read -rp "Remove Firefox snap and install ESR? [y/N] " confirm
+      read -rp "Remove Firefox snap and install from apt? [y/N] " confirm
       if [[ "$confirm" =~ ^[Yy]$ ]]; then
         "$SUDO_CMD" snap remove firefox
       else
-        echo "Skipping Firefox ESR installation."
+        echo "Skipping Firefox installation."
         exit 1
       fi
     fi
 
-    echo "Installing Firefox ESR from apt..."
+    echo "Installing Firefox from apt..."
+    if [ ! -f /etc/apt/sources.list.d/mozilla.list ]; then
+      "$SUDO_CMD" install -d -m 0755 /etc/apt/keyrings
+      wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | "$SUDO_CMD" tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+      echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | "$SUDO_CMD" tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+      cat << EOF | "$SUDO_CMD" tee /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+    fi
+
     update_cmd
-    install_cmd firefox-esr
-    persist_browser_config "firefox-esr" "--private-window"
+    install_cmd --allow-downgrades firefox
+    persist_browser_config "firefox" "--private-window"
     ;;
   3)
     local name="google-chrome-stable.deb"
