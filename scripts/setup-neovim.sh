@@ -28,4 +28,8 @@ install_config() {
   rm -rf .git
   rm -f README.md
   popd > /dev/null || return 1
+
+  if cmd_exists npm; then
+    npm install -g tree-sitter-cli
+  fi
 }
