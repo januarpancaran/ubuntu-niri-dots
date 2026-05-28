@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/utils.sh"
 
 DEV_PKGS=(
   composer
-  dotnet-sdk-10.0
+  dotnet10
   golang
   jq
   libxml2-utils
