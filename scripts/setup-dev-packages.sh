@@ -42,6 +42,8 @@ install_homebrew() {
       echo "Failed to fetch homebrew"
       return 1
     fi
+
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
   fi
 }
 
