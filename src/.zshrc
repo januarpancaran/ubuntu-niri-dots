@@ -78,6 +78,7 @@ export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 export GEM_HOME="$HOME/.gem"
 export PATH="$GEM_HOME/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:/usr/lib/ssl/certs"
 
 # Fzf
@@ -94,9 +95,4 @@ FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
-fi
-
-# mise
-if command -v mise &>/dev/null; then
-    eval "$(mise activate zsh)"
 fi
