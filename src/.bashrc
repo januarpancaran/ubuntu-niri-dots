@@ -32,10 +32,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 export PATH="$HOME/go/bin:$PATH"
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 export GEM_HOME="$(gem env home)"
 export PATH="$GEM_HOME/bin:$PATH"
@@ -46,10 +43,4 @@ export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:/usr/lib/ssl/certs"
 eval "$(fzf --bash)"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-
-# fnm
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-	export PATH="$FNM_PATH:$PATH"
-	eval "$(fnm env)"
-fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"

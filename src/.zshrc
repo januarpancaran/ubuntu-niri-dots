@@ -71,10 +71,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 export PATH="$HOME/go/bin:$PATH"
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 export GEM_HOME="$(gem env home)"
 export PATH="$GEM_HOME/bin:$PATH"
@@ -90,9 +87,5 @@ eval "$(zoxide init zsh)"
 # Starship
 eval "$(starship init zsh)"
 
-# fnm
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
+# Brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"

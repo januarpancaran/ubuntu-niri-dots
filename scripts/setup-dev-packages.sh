@@ -7,7 +7,6 @@ DEV_PKGS=(
   cargo
   composer
   dotnet10
-  golang
   jq
   libxml2-utils
   lua5.4
@@ -26,48 +25,59 @@ DEV_PKGS=(
 
 install_dev_pkgs() {
   install_cmd "${DEV_PKGS[@]}"
+  install_homebrew
   install_github_cli
   install_copilot_cli
   install_opencode
+  install_nodejs
+  install_bun
+  install_go
   install_vscode
   install_docker
 }
 
+install_homebrew() {
+  if ! cmd_exists brew; then
+    if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+      echo "Failed to fetch homebrew"
+      return 1
+    fi
+  fi
+}
+
 install_github_cli() {
   if ! cmd_exists gh; then
-    local latest_ver=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | jq -r .tag_name | sed 's/v//')
-
-    local pkg_name="gh_${latest_ver}_linux_amd64.deb"
-
-    if ! curl -LO https://github.com/cli/cli/releases/download/v${latest_ver}/${pkg_name}; then
-      echo "Failed to fetch github cli"
-      return 1
-    fi
-
-    if ! install_cmd "./${pkg_name}"; then
-      echo "Failed to install github cli"
-      return 1
-    fi
-
-    rm -f "${pkg_name}"
+    brew install gh
   fi
 }
 
 install_copilot_cli() {
   if ! cmd_exists copilot; then
-    if ! curl -fsSL https://gh.io/copilot-install | bash; then
-      echo "Failed to install copilot cli"
-      return 1
-    fi
+    brew install --cask copilot-cli
   fi
 }
 
 install_opencode() {
   if ! cmd_exists opencode; then
-    if ! curl -fsSL https://opencode.ai/install | bash; then
-      echo "Failed to install opencode"
-      return 1
-    fi
+    brew install anomalyco/tap/opencode
+  fi
+}
+
+install_nodejs() {
+  if ! cmd_exists node; then
+    brew install node
+  fi
+}
+
+install_bun() {
+  if ! cmd_exists bun; then
+    brew install oven-sh/bun/bun
+  fi
+}
+
+install_go() {
+  if ! cmd_exists go; then
+    brew install go
   fi
 }
 
